@@ -1,0 +1,5 @@
+.login-page {
+    background: url('../../../assets/dist/img/plaza.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh; /* Ajusta la altura según tus necesidades */
+  }

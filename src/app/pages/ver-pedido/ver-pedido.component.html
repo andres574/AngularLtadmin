@@ -1,0 +1,98 @@
+<div class="container">
+    <h1 class="text-center">Productos Agregados al Pedido</h1><br>
+
+
+
+
+    <div><button type="button" (click)="nuevo()" class="btn btn-primary btn-sm ml-2 my-4">Agregar nuevo producto al
+            pedido </button>
+    </div>
+ 
+    
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered">
+        <thead class="bg-dark text-white">
+            <tr>
+                <td>#</td>
+                <td>Producto</td>
+                <td>Cantidad</td>
+                <td>Precio Unidad</td>
+                <td>Precio Total</td>
+                <td>Acciones</td>
+            </tr>
+        </thead>
+        <tbody *ngIf="productosPedido.length > 0; else noDataMessage">
+            <tr *ngFor="let item of productosPedido; let i = index" >
+                <td>{{i +1}}</td>
+                <td>{{item.producto.nombre}}</td>
+                <td>{{item.cantidad}}</td>  
+                <td>{{item.producto.precio | currency:'COP':'symbol':'1.0-0'  }}</td>
+                <td>{{item.totalP | currency:'COP':'symbol':'1.0-0' }}</td>
+                <td><button type="button" (click)="eliminar(item._id)" class="btn btn-danger btn-sm ml-2">Eliminar</button>
+                    <button type="button" (click)="actualizar(item._id, item.producto._id,item.pedido._id)" class="btn btn-warning btn-sm ml-2">Editar</button>
+                </td>
+            </tr>
+            
+
+        </tbody>
+    </table>
+    <ng-template #noDataMessage>
+        <tbody>
+            <tr>
+                <td colspan="6" class="text-center">
+                    <p><b>No hay datos disponibles en la tabla.</b></p>
+                </td>
+            </tr>
+        </tbody>
+    </ng-template>
+
+    <div class="modal" tabindex="-1" role="dialog" [class.show]="showModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center">{{titulo}}</h5>
+                    <button type="button" class="close" (click)="cerrarModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="formPeProducto" (ngSubmit)="onSubmit()" class="mt-4">
+
+                        <div class="form-group"  *ngIf="campoProductos">
+                            <label for="productoSelect">Selecciona un producto:</label>
+                            <select id="productoSelect" class="form-control" (change)="onSelectChange($event)" >
+                              <option value="" disabled selected>Selecciona un producto</option>
+                              <option *ngFor="let product of productos" [value]="product._id">
+                                {{ product.nombre }} - {{product.precio}}
+                              </option>
+                            </select>
+                          </div>
+
+                        <div class="form-group">
+                            <label for="cantidad">Cantidad:</label>
+                            <input type="number" class="form-control" id="cantidad" formControlName="cantidad">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descripcion">Descripcion:</label>
+                            <input type="text" class="form-control" id="descripcion" formControlName="descripcion">
+
+                        </div>
+
+                        <button type="submit" [disabled]="formPeProducto.invalid"
+                            class="btn btn-primary">Guardar</button>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<br>
+    <div class="centrado">
+        <div class="negrita"><h3>Total compra: $ {{ totalCompra| currency:'COP':'symbol':'1.0-0' }}</h3></div>
+      </div>
+
+</div>

@@ -1,0 +1,13 @@
+<ng-container *ngIf="!authService.isAuthenticatede(); else authenticatedTemplate">
+  <app-login></app-login>
+</ng-container>
+
+<ng-template #authenticatedTemplate>
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+  <div class="content-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
+</ng-template>
+

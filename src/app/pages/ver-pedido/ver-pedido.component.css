@@ -1,0 +1,11 @@
+@import '../productos/productos.component.css';
+
+.centrado {
+    text-align: center;
+  }
+
+  .negrita {
+    font-weight: bold;
+  }
+
+  

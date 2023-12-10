@@ -1,0 +1,26 @@
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .show {
+    display: block;
+  }
+  .form-control {
+    background-color: rgba(187, 179, 179, 0.473); /* Color de fondo */
+    color: #333333; /* Color del texto */
+  }
+  
+  /* Opcional: Añadir un borde para mayor contraste */
+  .form-control {
+    border: 1px solid #ced4da71;
+  }
+  
+  /* Opcional: Estilo para el botón */
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }

@@ -1,0 +1,113 @@
+<div class="container">
+    <h1 class="text-center">Empleados</h1><br>
+
+
+
+
+    <div><button type="button" (click)="nuevo()"
+        class="btn btn-primary btn-sm ml-2 my-4">Agregar nuevo empleado</button></div>
+
+
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered">
+        <thead class="bg-dark text-white">
+            <tr>
+                <td>#</td>
+                <td>Nombre</td>
+                <td>Correo</td>
+                <td>Rol</td>
+                <td>acciones</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of empleados; let i = index ">
+                <td>{{i +1}}</td>
+                <td>{{item.seudonimo}}</td>
+                <td>{{item.correo}}</td>
+                <td [style.color]="item.rol?.nombre ? 'initial' : 'red'">{{ item.rol?.nombre || 'Sin asignar' }}</td>
+                <td><button type="button" (click)="eliminar(item._id)"
+                        class="btn btn-danger btn-sm ml-2">Eliminar</button>
+                    <button type="button" (click)="actualizar(item._id)"
+                        class="btn btn-warning btn-sm ml-2">Editar</button>
+                        <button type="button" (click)="rolUpdate(item._id)"
+                        class="btn btn-primary btn-sm ml-2">asignar Rol</button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <div class="modal" tabindex="-1" role="dialog" [class.show]="showModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-center">{{titulo}}</h5>
+              <button type="button" class="close" (click)="cerrarModal()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formProducto" (ngSubmit)="onSubmit()" class="mt-4">
+                    <div class="form-group">
+                      <label for="seudonimo">Nombre y apellido:</label>
+                      <input type="text" class="form-control" id="seudonimo" formControlName="seudonimo">
+                      
+                    </div>
+                  
+                    <div class="form-group">
+                      <label for="correo">Correo:</label>
+                      <input type="text" class="form-control" id="correo" formControlName="correo">
+                     
+                    </div>
+                  
+                    <div class="form-group">
+                      <label for="contrasena">Contraseña:</label>
+                      <input type="text" class="form-control" id="contrasena" formControlName="contrasena">
+                     
+                    </div>
+                  
+                    <button type="submit" [disabled]="formProducto.invalid" class="btn btn-primary">Guardar</button>
+                  </form>
+                  
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" tabindex="-1" role="dialog" [class.show]="showModal2">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-center">Actualizar rol al usuario</h5>
+              <button type="button" class="close" (click)="cerrarModal2()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                
+                  <div class="form-group"  >
+                    <label for="rolSelect">Selecciona un rol:</label>
+                    <select id="rolSelect" class="form-control" (change)="onSelectChange($event)" >
+                      <option value="" disabled selected>Selecciona un rol</option>
+                      <option *ngFor="let product of roles" [value]="product._id">
+                        {{ product.nombre }} - {{product.descripcion}}
+                      </option>
+                    </select>
+                  </div>
+                  
+                  
+                    <button type="submit" (click)="onSubmitRol()" class="btn btn-primary">Guardar</button>
+                
+                  
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="cerrarModal2()">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>

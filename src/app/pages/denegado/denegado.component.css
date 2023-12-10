@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .container img {
+    max-width: 70%;
+    height: auto;
+    max-height: 80vh;
+
+  }
+
+  .color{
+    color: red;
+  }
